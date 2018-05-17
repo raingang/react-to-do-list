@@ -1,4 +1,3 @@
-import list from '../todos'
 import { getTodoById } from '../utils'
 import { ADD_TODO, EDIT_TODO, CHECK_TODO, DELETE_TODO} from '../constants'
 
@@ -30,7 +29,7 @@ const handleCheckTodo = (state, payload) => {
     return state.slice(0, index).concat(item, state.slice(index + 1, state.length))
 }
 
-const todos = (state = list, action) => {
+const todos = (state = [], action) => {
     const {type, payload} = action
 
     switch(type) {

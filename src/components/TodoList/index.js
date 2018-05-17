@@ -17,7 +17,7 @@ class TodoList extends React.Component {
         this.setState({isOpen: !this.state.isOpen}) 
     }
 
-    renderList(){
+    renderList() {
         const {todos} = this.props
         return (<ul className = 'todo-list'>
             { todos.map((todo) => {

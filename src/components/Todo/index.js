@@ -35,7 +35,7 @@ class Todo extends React.Component {
         return (
             <div className = 'todo'>
                 <div className = 'todo-content'>
-                    <input onClick = {() => this.props.onCheck(id)} type="checkbox" value={taskTitle} checked = {done} className = 'checkbox'/>
+                    <input onChange = {() => this.props.onCheck(id)} type="checkbox" value={taskTitle} checked = {done} className = 'checkbox'/>
                     <span onClick = {this.openEdit} className = {done ? 'crossed-out' : null}>{taskTitle}</span>
                 </div>
                 <div className = 'form-group button-panel'>

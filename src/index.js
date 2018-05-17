@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TodoApp from './components/TodoApp/'
 import './index.css'
-import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import todos from './reducers'
+import configureStore from './configureStore'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-const reducers = combineReducers({todos})
-const store = createStore(reducers)
+const store = configureStore()
 const root = document.getElementById('root')
-window.store = store
 
-ReactDOM.render((<Provider store = {store}>
-                    <TodoApp />
-                </Provider>)
-    , root)
+window.store = store //dev
+
+const Root = ({store}) => (<Provider store = {store}>
+                                <BrowserRouter>
+                                    <Route path = '/' component = {TodoApp} />
+                                </BrowserRouter>
+                            </Provider>)
+
+ReactDOM.render(<Root store = {store} />, root)
