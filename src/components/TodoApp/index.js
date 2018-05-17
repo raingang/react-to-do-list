@@ -2,29 +2,16 @@ import React from 'react'
 import TodoList from '../TodoList' 
 import PropTypes from 'prop-types'
 import './todoApp.css'
-import {getTodoById} from '../../utils'
-
+import {connect} from 'react-redux'
+import {addTodo, editTodo, deleteTodo, checkTodo} from '../../actions'
 
 class TodoApp extends React.Component {
-    constructor(props) {
-        super(props) 
-        this.state = {
-            todos: this.props.todos,
-        }
-    }
-
     onCheck = (id) => {
-        const {todos} = this.state 
-        const item = getTodoById(this.state.todos, id)
-        const index = todos.indexOf(item) 
-        item.done = !item.done 
-        const updatedTodos = todos.slice(0, index).concat(item, todos.slice(index + 1, todos.length)) 
-        this.setState(updatedTodos) 
+        this.props.checkTodo(id)
     } 
 
     onDelete = (id) => {
-        const updatedTodos = this.state.todos.filter((item) => item.id !== id) 
-        this.setState({todos: updatedTodos}) 
+        this.props.deleteTodo(id)
     } 
 
     onSubmit =  (e) => {
@@ -32,22 +19,11 @@ class TodoApp extends React.Component {
         if(this.input.value.trim() === ''){
             return false 
         }
-        this.setState({
-            todos: this.state.todos.concat({
-                taskTitle: this.input.value.trim(),
-                id: Math.round(Math.random() * 10000),
-                done: false
-            })
-        })
+        this.props.addTodo(this.input.value.trim())
     } 
 
     onEdit = (id, editedTitle) => {
-        const todos = this.state.todos 
-        const item = getTodoById(this.state.todos, id)
-        const index = todos.indexOf(item) 
-        item.taskTitle = editedTitle 
-        const updatedTodos = todos.slice(0, index).concat(item, todos.slice(index + 1, todos.length)) 
-        this.setState(updatedTodos) 
+        this.props.editTodo(id, editedTitle)
     }
 
 
@@ -62,7 +38,7 @@ class TodoApp extends React.Component {
                         </span>
                     </div>
                 </form>
-                <TodoList onEdit = {this.onEdit} onDelete = {this.onDelete} onCheck = {this.onCheck} todos = {this.state.todos} />
+                <TodoList onEdit = {this.onEdit} onDelete = {this.onDelete} onCheck = {this.onCheck} todos = {this.props.todos} />
             </div>
             )
     }
@@ -75,5 +51,11 @@ TodoApp.propTypes = {
         taskTitle: PropTypes.string
     }))
 } 
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos
+    }
+}
+const mapDispatchToProps = {addTodo, editTodo, deleteTodo, checkTodo}
 
-export default TodoApp 
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
