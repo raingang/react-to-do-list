@@ -1,6 +1,6 @@
 import list from '../todos'
 import { getTodoById } from '../utils'
-
+import { ADD_TODO, EDIT_TODO, CHECK_TODO, DELETE_TODO} from '../constants'
 
 const handleAddTodo = (state, payload) => {
     return state.concat({
@@ -34,16 +34,16 @@ const todos = (state = list, action) => {
     const {type, payload} = action
 
     switch(type) {
-        case 'ADD_TODO':
+        case ADD_TODO:
             return handleAddTodo(state, payload)
 
-        case 'EDIT_TODO':
+        case EDIT_TODO:
             return handleEditTodo(state, payload)
 
-        case 'DELETE_TODO':
+        case DELETE_TODO:
             return handleDeleteTodo(state, payload)
 
-        case 'CHECK_TODO':
+        case CHECK_TODO:
             return handleCheckTodo(state, payload)
 
         default:

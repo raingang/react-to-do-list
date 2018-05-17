@@ -1,27 +1,29 @@
+import { ADD_TODO, EDIT_TODO, CHECK_TODO, DELETE_TODO} from "../constants";
+
 export const addTodo = (taskTitle) => {
     return {
-        type: 'ADD_TODO',
+        type: ADD_TODO,
         payload: { taskTitle }
     }
 }
 
 export const editTodo = (id, taskTitle) => {
     return {
-        type: 'EDIT_TODO',
+        type: EDIT_TODO,
         payload: {id, taskTitle}
     }
 }
 
 export const deleteTodo = (id) => {
     return {
-        type: 'DELETE_TODO',
+        type: DELETE_TODO,
         payload: {id}
     }
 }
 
 export const checkTodo = (id) => {
     return {
-        type: 'CHECK_TODO',
+        type: CHECK_TODO,
         payload: {id}
     }
 }
